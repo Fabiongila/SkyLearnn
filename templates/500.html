@@ -1,0 +1,9 @@
+{% extends 'error_handler_base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1>{% trans 'Server error' %}</h1>
+    <p>Por favor, tente novamente mais tarde.</p>
+    <a href="/" class="link">&LeftArrow; Voltar para a aplicação</a>
+</div>
+{% endblock %}

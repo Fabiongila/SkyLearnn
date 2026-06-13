@@ -1,0 +1,40 @@
+{% block content %}
+{% load i18n %}
+
+<p class="title-1">Docentes</p>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>N.º ID</th>
+        <th>Nome Completo</th>
+        <th>Email</th>
+        <th>Telemóvel</th>
+        <th>Morada/Cidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lecturer in lecturers %}
+      <tr>
+        <td> {{ forloop.counter }}.</td>
+        <td>{{ lecturer.username }}</td>
+        <td><a href="{% url 'profile_single' lecturer.id %}">{{ lecturer.get_full_name }}</a></td>
+        <td>{{ lecturer.email }}</td>
+        <td>{{ lecturer.phone }}</td>
+        <td>{{ lecturer.address }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td>
+          <span class="text-danger">
+            Nenhum docente.
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

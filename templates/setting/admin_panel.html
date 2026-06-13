@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | Sistema de Gestão de Aprendizagem{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Painel Admin</li>
+    </ol>
+</nav>  
+
+<div class="title-1"><i class="fas fa-user-tie"></i>Painel Admin</div>
+<br>
+<br>
+
+{% include 'snippets/messages.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="border-bottom">
+                Gerir<a class="link" href="{% url 'lecturer_list' %}"> Docentes &raquo;</a>
+                <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) docentes</p>
+            </div>
+
+            <div class="border-bottom mt-3">
+                Gerir<a class="link" href="{% url 'student_list' %}"> Estudantes &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) estudantes</p>
+            </div>
+
+            <div class="border-bottom mt-3">
+                Gerir<a class="link" href="{% url 'session_list' %}"> Sessões &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) sessões</p>
+            </div>
+
+            <div class="mt-3">
+                Gerir<a class="link" href="{% url 'semester_list' %}"> Semestres &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) semestres</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="border-bottom">
+                Adicionar Curso &amp; Cancelar
+                <label class="switch switch-text switch-success switch-pill" style="float: right;">
+                <input type="checkbox" class="switch-input" checked="true">
+                <span data-on="Ligado" data-off="Desligado" class="switch-label"></span>
+                <span class="switch-handle"></span>
+                </label>
+                <p class="text-muted">Alternar 
+                    <i class="info-text py-0 px-2 bg-success text-light">Ligado</i> ou <i class="info-text py-0 px-2 bg-danger text-light">Desligado</i>
+                </p>
+            </div>
+
+            <div class="border-bottom mt-3">
+                Gerir<a class="link" href="{% url 'programs' %}"> Programas &amp; Cursos &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) programas</p>
+            </div>
+
+            <div class="border-bottom mt-3">
+                Gerir<a class="link" href="{% url 'course_allocation_view' %}"> Alocações de Curso &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) alocações de curso</p>
+            </div>
+
+            <div class="mt-3">
+                Gerir<a class="link" href="{% url 'home' %}"> Notícias &amp; Eventos &raquo;</a>
+            <p class="text-muted">CRUD (Criar, Recuperar, Atualizar e Eliminar) Notícias &amp; Eventos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

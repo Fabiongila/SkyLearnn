@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+Resultado de {{ sitting.quiz.title }} {% trans "for" %} {{ sitting.user }} | Sistema de Gestão de Aprendizagem
+{% endblock %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Início</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'quiz_marking' %}">Exames Concluídos</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Avaliação</li>
+	</ol>
+</nav>
+
+<div class="row col-12 justify-content-between">
+	<div class="header-title-md">Título do Quiz: {{ sitting.quiz.title }}</div>
+	<em class="info-text title-danger">Categoria: {{ sitting.quiz.category }}</em>
+</div>
+
+<p>{{ sitting.quiz.description }}</p>
+<hr>
+<p><b>{% trans "User" %}:</b> {{ sitting.user }}</p>
+<p><b>Concluído:</b> {{ sitting.end|date }}</p>
+<p><b>{% trans "Score" %}:</b> {{ sitting.get_percent_correct }}%</p>
+<!-- <p><b>{% trans "Start" %}:</b> {{ sitting.start }}</p>
+<p><b>Fim:</b> {{ sitting.end }}</p> -->
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+	<tr>
+	  <th>Questão</th>
+	  <th>{% trans "User answer" %}</th>
+	  <th></th>
+	  <th></th>
+	</tr>
+  </thead>
+
+  <tbody>
+{% for question in questions %}
+
+	<tr>
+      <td>
+        {{ question.content }}
+        {% if question.figure %}
+        <div style="max-width: 100px;"><img src="{{ question.figure.url }}" alt="{{ question.figure }}" width="100px"/></div>
+        {% endif %}
+      </td>
+	  <td>{{ question }}</td>
+	  <td>
+		{% if question.id in sitting.get_incorrect_questions %}
+		  <p>{% trans "incorrect" %}</p>
+		{% else %}
+		  <p>Correcto</p>
+		{% endif %}
+	  </td>
+	  <td>
+		<form action="" method="POST">{% csrf_token %}
+		  <input type="hidden" name="qid" value="{{ question.id }}">
+		  <button type="submit" class="btn btn-sm btn-secondary">{% trans "Toggle whether correct" %}</button>
+		</form>
+	  </td>
+	</tr>
+
+{% endfor %}
+
+  </tbody>
+
+</table>
+{% endblock %}

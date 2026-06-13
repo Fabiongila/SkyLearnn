@@ -1,0 +1,76 @@
+{% block content %}
+{% load i18n %}
+
+{% if user.is_authenticated %}
+<div class="row">
+  <div class="card-header">
+    <table>
+        <tr>
+            <td>
+                <img src="{{ user.picture.path }}" class="user-picture">
+            </td>
+            <td class="info">
+                <p>{{ user.get_full_name|title }}</p>
+                <p><strong>Último login:</strong> {{ user.last_login|date }}</p>
+                <p><strong>{% trans 'Role:' %}</strong> {{ user.get_user_role }}</p>
+            </td>
+        </tr>
+    </table>
+    <hr>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      {% if user.is_lecturer %}
+      <p class="h5">Meus Cursos</p>
+      {% if courses %}
+      <ul class="list-group">
+        {% for course in courses %}
+        <li class="list-group-item">{{ course }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="text-danger">Nenhum curso atribuído!</div>
+      {% endif %}
+      <hr class="my-0">
+      {% endif %}
+
+      <p class="h5">Informações Pessoais</p>
+      <div class="dashboard-description">
+        <p><strong>Primeiro Nome:</strong> {{ user.first_name|title }}</p>
+        <p><strong>Último Nome:</strong> {{ user.last_name|title }}</p>
+        <p><strong>N.º ID:</strong> {{ user.username }}</p>
+      </div>
+
+      {% if user.is_student %}
+      <hr>
+      <p class="h5">Informações do Candidato</p>
+      <div class="dashboard-description">
+        <p><strong>{% trans 'School:' %}</strong>Escola Preparatória Hawas</p>
+        <p><strong>Nível:</strong> {{ level.level }}</p>
+      </div>
+      {% endif %}
+
+      <hr>
+      <p class="h5">Dados de Contacto</p>
+      <div class="dashboard-description">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>{% trans 'Tel No.:' %}</strong> {{ user.phone }}</p>
+        <p><strong>Morada/Cidade:</strong> {{ user.address }}</p>
+      </div>
+
+      <hr>
+      <p class="h5">Datas Importantes</p>
+      <div class="dashboard-description">
+        <p><strong>Último login:</strong> {{ user.last_login }}</p>
+        {% if current_semester and current_session %}
+        <p><strong>Ano Académico:</strong> {{ current_semester }} {% trans 'Semester' %} {{ current_session }}</p>
+        {% endif %}
+        <p><strong>Data de Registo:</strong> {{ user.date_joined|date }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock content %}
