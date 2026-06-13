@@ -4,5 +4,4 @@ services:
     env: python
     runtime: python-3.11
     buildCommand: pip install --prefer-binary -r requirements/production.txt
-    autoDeploy: true
     startCommand: sh -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:$PORT"
