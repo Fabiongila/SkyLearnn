@@ -3,5 +3,5 @@ services:
     name: skylearn-web
     env: python
     runtime: python-3.11
-    buildCommand: pip install --prefer-binary -r requirements/production.txt
+    buildCommand: pip install --upgrade pip && pip install --prefer-binary -r requirements/production.txt
     startCommand: sh -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:$PORT"
